@@ -1,5 +1,6 @@
 package org.pyarts.projectmanagementtool.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,17 +17,18 @@ public class BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @JsonFormat(pattern = "dd-MMM-yyyy")
     private LocalDate createdAt;
+    @JsonFormat(pattern = "dd-MMM-yyyy")
     private LocalDate updatedAt;
 
     @PrePersist
-    protected void onCreate(){
+    protected void onCreate() {
         this.createdAt = LocalDate.now();
     }
 
     @PreUpdate
-    protected  void onUpdate(){
+    protected void onUpdate() {
         this.updatedAt = LocalDate.now();
     }
 }
