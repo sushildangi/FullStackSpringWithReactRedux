@@ -1,14 +1,12 @@
 package org.pyarts.projectmanagementtool.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import java.time.LocalDate;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Setter
+@Getter
 @Entity
 @NoArgsConstructor
 public class Project extends BaseEntity {
