@@ -52,4 +52,17 @@ public class ProjectController {
         return new ResponseEntity<>("Project ID '" + projectIdentifier + "' was deleted",
                 HttpStatus.OK);
     }
+
+    @PutMapping("")
+    public ResponseEntity<?> updateNewProject(@Valid @RequestBody Project project,
+                                              BindingResult result) {
+        if (project.getId() == null) {
+            return new ResponseEntity<>("Project id is required for update",
+                    HttpStatus.CONFLICT);
+        }
+        ResponseEntity<?> error = validationErrorService.validationError(result);
+        if (error != null) return error;
+        return new ResponseEntity<>(projectService.saveOrUpdateProject(project),
+                HttpStatus.CREATED);
+    }
 }
