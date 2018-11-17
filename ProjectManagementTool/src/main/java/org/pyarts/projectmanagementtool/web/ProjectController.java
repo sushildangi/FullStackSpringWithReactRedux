@@ -6,10 +6,7 @@ import org.pyarts.projectmanagementtool.services.ValidationErrorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -33,5 +30,11 @@ public class ProjectController {
         if (error != null) return error;
         return new ResponseEntity<>(projectService.saveOrUpdateProject(project),
                 HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{projectIdentifier}")
+    public ResponseEntity<?> getProjectByIdentifier(@PathVariable("projectIdentifier") String projectIdentifier){
+        return new ResponseEntity<>(projectService.findProjectByIdentifier(projectIdentifier),
+                HttpStatus.OK);
     }
 }

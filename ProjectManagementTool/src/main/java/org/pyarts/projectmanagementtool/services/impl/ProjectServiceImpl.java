@@ -27,4 +27,14 @@ public class ProjectServiceImpl implements ProjectService {
         }
 
     }
+
+    @Override
+    public Project findProjectByIdentifier(String identifier) {
+        Project project = projectRepository.findByProjectIdentifier(identifier.toUpperCase());
+        if (project == null) {
+            throw new ProjectIdException("Project ID '" +
+                    identifier + "' does not exists");
+        }
+        return project;
+    }
 }
