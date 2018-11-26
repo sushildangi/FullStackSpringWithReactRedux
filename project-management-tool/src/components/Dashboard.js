@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import ProjectItem from './Project/ProjectItem';
+import Header from './Layout/Header';
 
 class Dashboard extends Component {
   render() {
     return (
-     <h1>Welcome to Dashboard</h1>
+      <div>
+        <Header/>
+        <h1>Welcome to Dashboard</h1>
+        <ProjectItem/>
+       </div>
     )
   }
 }
