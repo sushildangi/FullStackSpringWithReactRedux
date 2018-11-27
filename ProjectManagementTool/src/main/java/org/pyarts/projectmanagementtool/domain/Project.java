@@ -2,6 +2,7 @@ package org.pyarts.projectmanagementtool.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,8 +25,10 @@ public class Project extends BaseEntity {
     @NotBlank(message = "Project Description is required")
     @Column(columnDefinition = "text")
     private String description;
-    @JsonFormat(pattern = "dd-MMM-yyyy")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
-    @JsonFormat(pattern = "dd-MMM-yyyy")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 }
