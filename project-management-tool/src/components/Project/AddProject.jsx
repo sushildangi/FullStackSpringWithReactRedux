@@ -11,12 +11,21 @@ class AddProject extends Component {
       projectIdentifier: "",
       description: "",
       startDate: "",
-      endDate: ""
+      endDate: "",
+      errors: {}
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+
+  // life cycle hooks
+  componentWillReceiveProps(nextProp) {
+    if (nextProp.errors) {
+      this.setState({ errors: nextProp.errors });
+    }
+  }
+
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -35,6 +44,8 @@ class AddProject extends Component {
   }
 
   render() {
+    const { errors } = this.state;
+
     return (
       <div>
         <div className="project">
@@ -53,6 +64,7 @@ class AddProject extends Component {
                       value={this.state.projectName}
                       onChange={this.onChange}
                     />
+                    <p>{errors.projectName}</p>
                   </div>
                   <div className="form-group">
                     <input
@@ -63,6 +75,7 @@ class AddProject extends Component {
                       value={this.state.projectIdentifier}
                       onChange={this.onChange}
                     />
+                    <p>{errors.projectIdentifier}</p>
                   </div>
 
                   <div className="form-group">
@@ -73,6 +86,7 @@ class AddProject extends Component {
                       value={this.state.description}
                       onChange={this.onChange}
                     />
+                    <p>{errors.description}</p>
                   </div>
                   <h6>Start Date</h6>
                   <div className="form-group">
@@ -110,10 +124,15 @@ class AddProject extends Component {
 }
 
 AddProject.propType = {
-  createProject: PropType.func.isRequired
+  createProject: PropType.func.isRequired,
+  errors: PropType.object.isRequired
 };
 
+const mapStateToProps = state => ({
+  errors: state.errors
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { createProject }
 )(AddProject);
