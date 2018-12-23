@@ -19,7 +19,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public Project saveOrUpdateProject(Project project) {
         try {
-            project.setProjectIdentifier(project.getProjectIdentifier());
+            project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
             return projectRepository.save(project);
         } catch (Exception e) {
             throw new ProjectIdException("Project ID '" +

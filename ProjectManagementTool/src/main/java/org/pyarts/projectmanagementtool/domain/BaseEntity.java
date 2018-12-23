@@ -17,9 +17,10 @@ public class BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonFormat(pattern = "dd-MMM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    @Column(updatable = false)
     private LocalDate createdAt;
-    @JsonFormat(pattern = "dd-MMM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate updatedAt;
 
     @PrePersist
