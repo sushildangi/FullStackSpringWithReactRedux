@@ -155,7 +155,7 @@ class UpdateProject extends Component {
     }
 }
 
-UpdateProject.PropTypes = {
+UpdateProject.propTypes = {
     getProject: PropTypes.func.isRequired,
     updateProject: PropTypes.func.isRequired,
     project: PropTypes.object.isRequired,
