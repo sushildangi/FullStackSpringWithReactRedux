@@ -6,6 +6,8 @@ import org.pyarts.projectmanagementtool.repositories.ProjectRepository;
 import org.pyarts.projectmanagementtool.services.ProjectService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
@@ -39,7 +41,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Iterable<Project> findAllProject() {
+    public List<Project> findAllProject() {
         return projectRepository.findAll();
     }
 

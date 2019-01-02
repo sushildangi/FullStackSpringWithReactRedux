@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @Getter
 @Entity
 @NoArgsConstructor
+@ToString
 public class Project extends BaseEntity {
 
     @NotBlank(message = "Project Name is required")
