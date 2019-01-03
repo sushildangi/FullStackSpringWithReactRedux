@@ -1,7 +1,9 @@
 package org.pyarts.projectmanagementtool.services.impl;
 
+import org.pyarts.projectmanagementtool.domain.Backlog;
 import org.pyarts.projectmanagementtool.domain.Project;
 import org.pyarts.projectmanagementtool.exceptions.ProjectIdException;
+import org.pyarts.projectmanagementtool.repositories.BacklogRepository;
 import org.pyarts.projectmanagementtool.repositories.ProjectRepository;
 import org.pyarts.projectmanagementtool.services.ProjectService;
 import org.springframework.stereotype.Service;
@@ -12,16 +14,27 @@ import java.util.List;
 public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository projectRepository;
+    private final BacklogRepository backlogRepository;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, BacklogRepository backlogRepository) {
         this.projectRepository = projectRepository;
+        this.backlogRepository = backlogRepository;
     }
 
 
     @Override
     public Project saveOrUpdateProject(Project project) {
         try {
-            project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+            String projectIdentifier = project.getProjectIdentifier().toUpperCase();
+            project.setProjectIdentifier(projectIdentifier);
+            if (project.getId() == null) {
+                Backlog backlog = new Backlog();
+                project.setBacklog(backlog);
+                backlog.setProject(project);
+                backlog.setProjectIdentifier(projectIdentifier);
+            } else {
+                project.setBacklog(backlogRepository.findBacklogByProjectIdentifier(projectIdentifier));
+            }
             return projectRepository.save(project);
         } catch (Exception e) {
             throw new ProjectIdException("Project ID '" +
